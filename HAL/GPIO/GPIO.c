@@ -83,8 +83,13 @@ static void GPIO_InitStepper(void)
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 
 	/* GPIO Configuration: A3, D3, D5, D4, D6 */
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_10;
+	//GPIO_InitStructure.GPIO_Pin = 0;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_10 | GPIO_Pin_14 | GPIO_Pin_15;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+	//GPIO_InitStructure.GPIO_Pin = 0;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_6;
+	GPIO_Init(GPIOC, &GPIO_InitStructure);
 }
 
 static void GPIO_InitProbe(void)
@@ -134,14 +139,14 @@ static void GPIO_InitLimit(void)
 	GPIO_InitTypeDef GPIO_InitStructure;
 
 	/* GPIO Configuration: */
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_13;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_7;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;

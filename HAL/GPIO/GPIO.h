@@ -24,18 +24,26 @@
 // GPIO Pins
 // Stepper Pins
 #define GPIO_STEP_X_PORT		GPIOA
+#define GPIO_STEP_X2_PORT		GPIOB
 #define GPIO_STEP_Y_PORT		GPIOB
+#define GPIO_STEP_Y2_PORT		GPIOC
 #define GPIO_STEP_Z_PORT		GPIOB
 #define GPIO_STEP_X_PIN			GPIO_Pin_10
+#define GPIO_STEP_X2_PIN		GPIO_Pin_15
 #define GPIO_STEP_Y_PIN			GPIO_Pin_3
+#define GPIO_STEP_Y2_PIN		GPIO_Pin_8
 #define GPIO_STEP_Z_PIN			GPIO_Pin_5
 
 // Direction Pins
 #define GPIO_DIR_X_PORT			GPIOB
+#define GPIO_DIR_X2_PORT		GPIOB
 #define GPIO_DIR_Y_PORT			GPIOB
+#define GPIO_DIR_Y2_PORT		GPIOC
 #define GPIO_DIR_Z_PORT			GPIOA
 #define GPIO_DIR_X_PIN			GPIO_Pin_4
+#define GPIO_DIR_X2_PIN			GPIO_Pin_14
 #define GPIO_DIR_Y_PIN			GPIO_Pin_10
+#define GPIO_DIR_Y2_PIN			GPIO_Pin_6
 #define GPIO_DIR_Z_PIN			GPIO_Pin_8
 
 // Stepper Enable
@@ -44,10 +52,14 @@
 
 // Limit Pins
 #define GPIO_LIM_X_PORT			GPIOC
+#define GPIO_LIM_X2_PORT		GPIOB
 #define GPIO_LIM_Y_PORT			GPIOB
+#define GPIO_LIM_Y2_PORT		GPIOC
 #define GPIO_LIM_Z_PORT			GPIOA
 #define GPIO_LIM_X_PIN			GPIO_Pin_7
+#define GPIO_LIM_X2_PIN			GPIO_Pin_13
 #define GPIO_LIM_Y_PIN			GPIO_Pin_6
+#define GPIO_LIM_Y2_PIN			GPIO_Pin_5
 #define GPIO_LIM_Z_PIN			GPIO_Pin_6
 
 // Spindle

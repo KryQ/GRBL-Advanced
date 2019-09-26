@@ -592,6 +592,12 @@
 // Backlash Compensation
 #define ENABLE_BACKLASH_COMPENSATION
 
+//TOFO some real desc
+//dual axis for mpcnc like machines.
+#define DUAL_X_AXIS
+#define INVERT_DUAL_X_AXIS
+#define DUAL_Y_AXIS
+#define INVERT_DUAL_Y_AXIS
 
 /* ---------------------------------------------------------------------------------------
    OEM Single File Configuration Option
