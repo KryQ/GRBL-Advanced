@@ -21,34 +21,37 @@
 			<Cursor1 position="1639" topLine="32" />
 		</Cursor>
 	</File>
-	<File name="grbl\Config.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="grbl\Config.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="31362" topLine="465" />
+			<Cursor1 position="5999" topLine="569" />
 		</Cursor>
 	</File>
 	<File name="grbl\CoolantControl.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="959" topLine="8" />
+			<Cursor1 position="1339" topLine="44" />
 		</Cursor>
 	</File>
 	<File name="grbl\CoolantControl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="873" topLine="13" />
+			<Cursor1 position="873" topLine="5" />
 		</Cursor>
 	</File>
 	<File name="grbl\defaults.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2407" topLine="10" />
+			<Cursor1 position="2407" topLine="30" />
 		</Cursor>
 	</File>
 	<File name="grbl\GCode.c" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2159" topLine="57" />
+			<Cursor1 position="5734" topLine="157" />
 		</Cursor>
+		<Folding>
+			<Collapse line="797" />
+		</Folding>
 	</File>
 	<File name="grbl\GCode.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="809" topLine="0" />
+			<Cursor1 position="809" topLine="135" />
 		</Cursor>
 	</File>
 	<File name="grbl\grbl_advance.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -63,25 +66,25 @@
 	</File>
 	<File name="grbl\Jog.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="752" topLine="4" />
+			<Cursor1 position="752" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="grbl\Limits.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="grbl\Limits.c" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="9413" topLine="275" />
+			<Cursor1 position="5861" topLine="204" />
 		</Cursor>
 		<Folding>
-			<Collapse line="234" />
+			<Collapse line="60" />
 		</Folding>
 	</File>
 	<File name="grbl\Limits.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="858" topLine="15" />
+			<Cursor1 position="858" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="grbl\MotionControl.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="grbl\MotionControl.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="14653" topLine="84" />
+			<Cursor1 position="14793" topLine="98" />
 		</Cursor>
 		<Folding>
 			<Collapse line="47" />
@@ -92,7 +95,7 @@
 	</File>
 	<File name="grbl\MotionControl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="848" topLine="3" />
+			<Cursor1 position="1219" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="grbl\Planner.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -102,7 +105,7 @@
 	</File>
 	<File name="grbl\Planner.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1896" topLine="15" />
+			<Cursor1 position="1896" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="grbl\Probe.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -122,7 +125,7 @@
 	</File>
 	<File name="grbl\Protocol.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="842" topLine="3" />
+			<Cursor1 position="842" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="grbl\Report.c" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -132,7 +135,7 @@
 	</File>
 	<File name="grbl\Report.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1483" topLine="9" />
+			<Cursor1 position="1483" topLine="27" />
 		</Cursor>
 	</File>
 	<File name="grbl\Settings.c" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -142,7 +145,7 @@
 	</File>
 	<File name="grbl\Settings.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3593" topLine="62" />
+			<Cursor1 position="3593" topLine="44" />
 		</Cursor>
 	</File>
 	<File name="grbl\SpindleControl.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -155,10 +158,28 @@
 			<Cursor1 position="1411" topLine="12" />
 		</Cursor>
 	</File>
-	<File name="grbl\Stepper.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="grbl\Stepper.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="46208" topLine="307" />
+			<Cursor1 position="19560" topLine="358" />
 		</Cursor>
+		<Folding>
+			<Collapse line="253" />
+			<Collapse line="336" />
+			<Collapse line="352" />
+			<Collapse line="369" />
+			<Collapse line="483" />
+			<Collapse line="493" />
+			<Collapse line="510" />
+			<Collapse line="527" />
+			<Collapse line="543" />
+			<Collapse line="548" />
+			<Collapse line="567" />
+			<Collapse line="610" />
+			<Collapse line="630" />
+			<Collapse line="675" />
+			<Collapse line="686" />
+			<Collapse line="751" />
+		</Folding>
 	</File>
 	<File name="grbl\Stepper.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
@@ -172,7 +193,7 @@
 	</File>
 	<File name="grbl\System.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4260" topLine="53" />
+			<Cursor1 position="4260" topLine="18" />
 		</Cursor>
 	</File>
 	<File name="grbl\ToolChange.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -187,7 +208,7 @@
 	</File>
 	<File name="grbl\util.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1544" topLine="83" />
+			<Cursor1 position="1087" topLine="11" />
 		</Cursor>
 	</File>
 	<File name="HAL\EXTI\EXTI.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -207,17 +228,21 @@
 	</File>
 	<File name="HAL\FLASH\eeprom.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1007" topLine="21" />
+			<Cursor1 position="1007" topLine="2" />
 		</Cursor>
 	</File>
-	<File name="HAL\GPIO\GPIO.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="HAL\GPIO\GPIO.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="440" topLine="142" />
+			<Cursor1 position="3693" topLine="77" />
 		</Cursor>
+		<Folding>
+			<Collapse line="95" />
+			<Collapse line="107" />
+		</Folding>
 	</File>
-	<File name="HAL\GPIO\GPIO.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="HAL\GPIO\GPIO.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1808" topLine="38" />
+			<Cursor1 position="1770" topLine="24" />
 		</Cursor>
 	</File>
 	<File name="HAL\SPI\SPI.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -227,7 +252,7 @@
 	</File>
 	<File name="HAL\SPI\SPI.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="638" topLine="0" />
+			<Cursor1 position="638" topLine="17" />
 		</Cursor>
 	</File>
 	<File name="HAL\STM32\startup_stm32f4xx.S" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -315,9 +340,14 @@
 			<Collapse line="169" />
 		</Folding>
 	</File>
-	<File name="main.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="3574" topLine="83" />
+		</Cursor>
+	</File>
+	<File name="SPL\inc\misc.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="131" />
 		</Cursor>
 	</File>
 	<File name="SPL\inc\stm32f4xx_cryp.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -332,7 +362,7 @@
 	</File>
 	<File name="SPL\inc\stm32f4xx_gpio.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5227" topLine="134" />
+			<Cursor1 position="5227" topLine="329" />
 		</Cursor>
 	</File>
 	<File name="SPL\inc\stm32f4xx_rcc.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">

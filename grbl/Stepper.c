@@ -338,35 +338,46 @@ void Stepper_MainISR(void) {
 		if(step_port_invert_mask & (1<<X_STEP_BIT)) {
 			// Low pulse
 			GPIO_ResetBits(GPIO_STEP_X_PORT, GPIO_STEP_X_PIN);
-			#ifdef DUAL_X_AXIS
-                GPIO_ResetBits(GPIO_STEP_X2_PORT, GPIO_STEP_X2_PIN);
-            #endif
 		}
 		else {
 			// High pulse
 			GPIO_SetBits(GPIO_STEP_X_PORT, GPIO_STEP_X_PIN);
-			#ifdef DUAL_X_AXIS
-                GPIO_SetBits(GPIO_STEP_X2_PORT, GPIO_STEP_X2_PIN);
-            #endif
 		}
     }
+    #ifdef DUAL_X_AXIS
+        if(st.step_outbits & (1<<X2_STEP_BIT)) {
+            if(step_port_invert_mask & (1<<X2_STEP_BIT)) {
+                // Low pulse
+                GPIO_ResetBits(GPIO_STEP_X2_PORT, GPIO_STEP_X2_PIN);
+            }
+            else {
+                // High pulse
+                GPIO_SetBits(GPIO_STEP_X2_PORT, GPIO_STEP_X2_PIN);
+            }
+        }
+    #endif
     if(st.step_outbits & (1<<Y_STEP_BIT)) {
 		if(step_port_invert_mask & (1<<Y_STEP_BIT)) {
 			// Low pulse
 			GPIO_ResetBits(GPIO_STEP_Y_PORT, GPIO_STEP_Y_PIN);
-			#ifdef DUAL_Y_AXIS
-                GPIO_ResetBits(GPIO_STEP_Y2_PORT, GPIO_STEP_Y2_PIN);
-            #endif
 		}
 		else {
 			// High pulse
 			GPIO_SetBits(GPIO_STEP_Y_PORT, GPIO_STEP_Y_PIN);
-			#ifdef DUAL_Y_AXIS
-                GPIO_SetBits(GPIO_STEP_Y2_PORT, GPIO_STEP_Y2_PIN);
-            #endif
 		}
-
     }
+    #ifdef DUAL_Y_AXIS
+        if(st.step_outbits & (1<<Y2_STEP_BIT)) {
+            if(step_port_invert_mask & (1<<Y2_STEP_BIT)) {
+                // Low pulse
+                GPIO_ResetBits(GPIO_STEP_Y2_PORT, GPIO_STEP_Y2_PIN);
+            }
+            else {
+                // High pulse
+                GPIO_SetBits(GPIO_STEP_Y2_PORT, GPIO_STEP_Y2_PIN);
+            }
+        }
+    #endif
     if(st.step_outbits & (1<<Z_STEP_BIT)) {
 		if(step_port_invert_mask & (1<<Z_STEP_BIT)) {
 			// Low pulse
@@ -411,44 +422,52 @@ void Stepper_MainISR(void) {
 			// Some driver e.g. require a setup time of a few us.
 			if(st.dir_outbits & (1<<X_DIRECTION_BIT)) {
 				GPIO_SetBits(GPIO_DIR_X_PORT, GPIO_DIR_X_PIN);
-				#ifdef DUAL_X_AXIS
-                    #ifndef INVERT_DUAL_X_AXIS
-                        GPIO_SetBits(GPIO_DIR_X2_PORT, GPIO_DIR_X2_PIN);
-                    #else
-                        GPIO_ResetBits(GPIO_DIR_X2_PORT, GPIO_DIR_X2_PIN);
-                    #endif
-                #endif
 			}
 			else {
 				GPIO_ResetBits(GPIO_DIR_X_PORT, GPIO_DIR_X_PIN);
-				#ifdef DUAL_X_AXIS
+			}
+
+			#ifdef DUAL_X_AXIS
+                if(st.dir_outbits & (1<<X2_DIRECTION_BIT)) {
+                    #ifndef INVERT_DUAL_X_AXIS
+                        GPIO_SetBits(GPIO_DIR_X2_PORT, GPIO_DIR_X2_PIN);
+                    #else
+                        GPIO_ResetBits(GPIO_DIR_X2_PORT, GPIO_DIR_X2_PIN);
+                    #endif
+                }
+                else {
                     #ifndef INVERT_DUAL_X_AXIS
                         GPIO_ResetBits(GPIO_DIR_X2_PORT, GPIO_DIR_X2_PIN);
                     #else
                         GPIO_SetBits(GPIO_DIR_X2_PORT, GPIO_DIR_X2_PIN);
                     #endif
-                #endif
-			}
+                }
+			#endif
+
 			if(st.dir_outbits & (1<<Y_DIRECTION_BIT)) {
 				GPIO_SetBits(GPIO_DIR_Y_PORT, GPIO_DIR_Y_PIN);
-				#ifdef DUAL_Y_AXIS
-                    #ifndef INVERT_DUAL_Y_AXIS
-                        GPIO_SetBits(GPIO_DIR_Y2_PORT, GPIO_DIR_Y2_PIN);
-                    #else
-                        GPIO_ResetBits(GPIO_DIR_Y2_PORT, GPIO_DIR_Y2_PIN);
-                    #endif
-                #endif
 			}
 			else {
 				GPIO_ResetBits(GPIO_DIR_Y_PORT, GPIO_DIR_Y_PIN);
-				#ifdef DUAL_Y_AXIS
+			}
+
+			#ifdef DUAL_Y_AXIS
+                if(st.dir_outbits & (1<<Y2_DIRECTION_BIT)) {
+                    #ifndef INVERT_DUAL_Y_AXIS
+                        GPIO_SetBits(GPIO_DIR_Y2_PORT, GPIO_DIR_Y2_PIN);
+                    #else
+                        GPIO_ResetBits(GPIO_DIR_Y2_PORT, GPIO_DIR_Y2_PIN);
+                    #endif
+                }
+                else {
                     #ifndef INVERT_DUAL_Y_AXIS
                         GPIO_ResetBits(GPIO_DIR_Y2_PORT, GPIO_DIR_Y2_PIN);
                     #else
                         GPIO_SetBits(GPIO_DIR_Y2_PORT, GPIO_DIR_Y2_PIN);
                     #endif
-                #endif
-			}
+                }
+            #endif
+
 			if(st.dir_outbits & (1<<Z_DIRECTION_BIT)) {
 				GPIO_SetBits(GPIO_DIR_Z_PORT, GPIO_DIR_Z_PIN);
 			}
@@ -492,11 +511,14 @@ void Stepper_MainISR(void) {
 	st.counter_x += st.steps[X_AXIS];
 
 	if(st.counter_x > st.exec_block->step_event_count) {
-		st.step_outbits |= (1<<X_STEP_BIT);
+        #ifndef DUAL_X_AXIS
+            st.step_outbits |= (1<<X_STEP_BIT);
+        #else
+            st.step_outbits |= (1<<X_STEP_BIT) | (1<<X2_STEP_BIT);
+        #endif
 		st.counter_x -= st.exec_block->step_event_count;
 
-        if(st.exec_segment->backlash_motion == 0)
-        {
+        if(st.exec_segment->backlash_motion == 0) {
             if(st.exec_block->direction_bits & (1<<X_DIRECTION_BIT)) {
                 sys_position[X_AXIS]--;
             }
@@ -509,7 +531,12 @@ void Stepper_MainISR(void) {
 	st.counter_y += st.steps[Y_AXIS];
 
 	if(st.counter_y > st.exec_block->step_event_count) {
-		st.step_outbits |= (1<<Y_STEP_BIT);
+		#ifndef DUAL_Y_AXIS
+            st.step_outbits |= (1<<Y_STEP_BIT);
+        #else
+            st.step_outbits |= (1<<Y_STEP_BIT) | (1<<Y2_STEP_BIT);
+        #endif
+
 		st.counter_y -= st.exec_block->step_event_count;
 
         if(st.exec_segment->backlash_motion == 0)
@@ -571,30 +598,38 @@ void Stepper_PortResetISR(void)
 	// X
 	if(step_port_invert_mask & (1<<X_STEP_BIT)) {
 		GPIO_SetBits(GPIO_STEP_X_PORT, GPIO_STEP_X_PIN);
-		#ifdef DUAL_X_AXIS
-            GPIO_SetBits(GPIO_STEP_X2_PORT, GPIO_STEP_X2_PIN);
-        #endif
 	}
 	else {
 		GPIO_ResetBits(GPIO_STEP_X_PORT, GPIO_STEP_X_PIN);
-		#ifdef DUAL_X_AXIS
-            GPIO_ResetBits(GPIO_STEP_X2_PORT, GPIO_STEP_X2_PIN);
-        #endif
 	}
+
+	//X2
+    #ifdef DUAL_X_AXIS
+        if(step_port_invert_mask & (1<<X2_STEP_BIT)) {
+            GPIO_SetBits(GPIO_STEP_X2_PORT, GPIO_STEP_X2_PIN);
+        }
+        else {
+            GPIO_ResetBits(GPIO_STEP_X2_PORT, GPIO_STEP_X2_PIN);
+        }
+    #endif
 
 	// Y
 	if(step_port_invert_mask & (1<<Y_STEP_BIT)) {
 		GPIO_SetBits(GPIO_STEP_Y_PORT, GPIO_STEP_Y_PIN);
-		#ifdef DUAL_Y_AXIS
-            GPIO_SetBits(GPIO_STEP_Y2_PORT, GPIO_STEP_Y2_PIN);
-        #endif
 	}
 	else {
 		GPIO_ResetBits(GPIO_STEP_Y_PORT, GPIO_STEP_Y_PIN);
-		#ifdef DUAL_Y_AXIS
-            GPIO_ResetBits(GPIO_STEP_Y2_PORT, GPIO_STEP_Y2_PIN);
-        #endif
 	}
+
+    // Y2
+    #ifdef DUAL_Y_AXIS
+        if(step_port_invert_mask & (1<<Y2_STEP_BIT)) {
+            GPIO_SetBits(GPIO_STEP_Y2_PORT, GPIO_STEP_Y2_PIN);
+        }
+        else {
+            GPIO_ResetBits(GPIO_STEP_Y2_PORT, GPIO_STEP_Y2_PIN);
+        }
+    #endif
 
 	// Z
 	if(step_port_invert_mask & (1<<Z_STEP_BIT)) {

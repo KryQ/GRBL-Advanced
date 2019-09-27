@@ -50,22 +50,28 @@
 #define X_AXIS						0 // Axis indexing value.
 #define Y_AXIS						1
 #define Z_AXIS						2
-#define A_AXIS						3
+//#define A_AXIS						3
 
 #define X_STEP_BIT					0
 #define Y_STEP_BIT					1
 #define Z_STEP_BIT					2
-#define A_STEP_BIT                  3
+//#define A_STEP_BIT                  3
+#define X2_STEP_BIT					3
+#define Y2_STEP_BIT					4
 
 #define X_DIRECTION_BIT				0
 #define Y_DIRECTION_BIT				1
 #define Z_DIRECTION_BIT				2
-#define A_DIRECTION_BIT             3
+//#define A_DIRECTION_BIT             3
+#define X2_DIRECTION_BIT			3
+#define Y2_DIRECTION_BIT			4
 
 #define X_LIMIT_BIT					0
 #define Y_LIMIT_BIT					1
 #define Z_LIMIT_BIT					2
-#define LIMIT_MASK					((1<<X_LIMIT_BIT) | (1<<Y_LIMIT_BIT) | (1<<Z_LIMIT_BIT))
+#define X2_LIMIT_BIT				3
+#define Y2_LIMIT_BIT				4
+#define LIMIT_MASK					((1<<X_LIMIT_BIT) | (1<<Y_LIMIT_BIT) | (1<<Z_LIMIT_BIT) | (1<<X2_LIMIT_BIT) | (1<<Y2_LIMIT_BIT))
 
 #define SPINDLE_ENABLE_BIT			0
 #define SPINDLE_DIRECTION_BIT		1

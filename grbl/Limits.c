@@ -71,7 +71,13 @@ uint8_t Limits_GetState(void)
 	uint8_t limit_state = 0;
 
 	limit_state = (GPIO_ReadInputDataBit(GPIO_LIM_X_PORT, GPIO_LIM_X_PIN)<<X_LIMIT_BIT);
+	#ifdef DUAL_X_AXIS
+        limit_state |= (GPIO_ReadInputDataBit(GPIO_LIM_X2_PORT, GPIO_LIM_X2_PIN)<<X2_LIMIT_BIT);
+    #endif
 	limit_state |= (GPIO_ReadInputDataBit(GPIO_LIM_Y_PORT, GPIO_LIM_Y_PIN)<<Y_LIMIT_BIT);
+	#ifdef DUAL_Y_AXIS
+        limit_state |= (GPIO_ReadInputDataBit(GPIO_LIM_Y2_PORT, GPIO_LIM_Y2_PIN)<<Y2_LIMIT_BIT);
+    #endif
 	limit_state |= (GPIO_ReadInputDataBit(GPIO_LIM_Z_PORT, GPIO_LIM_Z_PIN)<<Z_LIMIT_BIT);
 
 	if(BIT_IS_FALSE(settings.flags, BITFLAG_INVERT_LIMIT_PINS)) {
@@ -135,8 +141,8 @@ void Limits_GoHome(uint8_t cycle_mask)
 	// Initialize plan data struct for homing motion. Spindle and coolant are disabled.
 	Planner_LineData_t plan_data;
 	Planner_LineData_t *pl_data = &plan_data;
-	memset(pl_data,0,sizeof(Planner_LineData_t));
-	pl_data->condition = (PL_COND_FLAG_SYSTEM_MOTION|PL_COND_FLAG_NO_FEED_OVERRIDE);
+	memset(pl_data, 0, sizeof(Planner_LineData_t));
+	pl_data->condition = (PL_COND_FLAG_SYSTEM_MOTION | PL_COND_FLAG_NO_FEED_OVERRIDE);
 	pl_data->line_number = HOMING_CYCLE_LINE_NUMBER;
 
 	// Initialize variables used for homing computations.
@@ -145,15 +151,16 @@ void Limits_GoHome(uint8_t cycle_mask)
 	float target[N_AXIS];
 	float max_travel = 0.0;
 	uint8_t idx;
+
 	for(idx = 0; idx < N_AXIS; idx++) {
 		// Initialize step pin masks
 		step_pin[idx] = Settings_GetStepPinMask(idx);
 
-#ifdef COREXY
+        #ifdef COREXY
 			if((idx == A_MOTOR) || (idx == B_MOTOR)) {
 				step_pin[idx] = (Settings_GetStepPinMask(X_AXIS) | Settings_GetStepPinMask(Y_AXIS));
 			}
-#endif
+        #endif
 
 		if(BIT_IS_TRUE(cycle_mask, BIT(idx))) {
 			// Set target based on max_travel setting. Ensure homing switches engaged with search scalar.
@@ -168,7 +175,7 @@ void Limits_GoHome(uint8_t cycle_mask)
 
 	uint8_t limit_state, axislock, n_active_axis;
 	do {
-		System_ConvertArraySteps2Mpos(target,sys_position);
+		System_ConvertArraySteps2Mpos(target, sys_position);
 
 		// Initialize and declare variables needed for homing routine.
 		axislock = 0;
@@ -177,22 +184,22 @@ void Limits_GoHome(uint8_t cycle_mask)
 			// Set target location for active axes and setup computation for homing rate.
 			if(BIT_IS_TRUE(cycle_mask,BIT(idx))) {
 				n_active_axis++;
-#ifdef COREXY
-				if(idx == X_AXIS) {
-					int32_t axis_position = system_convert_corexy_to_y_axis_steps(sys_position);
-					sys_position[A_MOTOR] = axis_position;
-					sys_position[B_MOTOR] = -axis_position;
-				}
-				else if (idx == Y_AXIS) {
-					int32_t axis_position = system_convert_corexy_to_x_axis_steps(sys_position);
-					sys_position[A_MOTOR] = sys_position[B_MOTOR] = axis_position;
-				}
-				else {
-					sys_position[Z_AXIS] = 0;
-				}
-#else
-				sys_position[idx] = 0;
-#endif
+                #ifdef COREXY
+                    if(idx == X_AXIS) {
+                        int32_t axis_position = system_convert_corexy_to_y_axis_steps(sys_position);
+                        sys_position[A_MOTOR] = axis_position;
+                        sys_position[B_MOTOR] = -axis_position;
+                    }
+                    else if (idx == Y_AXIS) {
+                        int32_t axis_position = system_convert_corexy_to_x_axis_steps(sys_position);
+                        sys_position[A_MOTOR] = sys_position[B_MOTOR] = axis_position;
+                    }
+                    else {
+                        sys_position[Z_AXIS] = 0;
+                    }
+                #else
+                    sys_position[idx] = 0;
+                #endif
 				// Set target direction based on cycle mask and homing cycle approach state.
 				// NOTE: This happens to compile smaller than any other implementation tried.
 				if(BIT_IS_TRUE(settings.homing_dir_mask, BIT(idx))) {
@@ -209,8 +216,14 @@ void Limits_GoHome(uint8_t cycle_mask)
 				}
 				// Apply axislock to the step port pins active in this cycle.
 				axislock |= step_pin[idx];
-			}
 
+				#ifdef DUAL_X_AXIS
+                    if(idx == X_AXIS) axislock |= (1<<X2_STEP_BIT);
+                #endif
+                #ifdef DUAL_Y_AXIS
+                    if(idx == Y_AXIS) axislock |= (1<<Y2_STEP_BIT);
+                #endif
+			}
 		}
 
 		homing_rate *= sqrt(n_active_axis); // [sqrt(N_AXIS)] Adjust so individual axes all move at homing rate.
@@ -224,6 +237,7 @@ void Limits_GoHome(uint8_t cycle_mask)
 		Stepper_PrepareBuffer(); // Prep and fill segment buffer from newly planned block.
 		Stepper_WakeUp(); // Initiate motion
 
+        System_SetExecAlarm(axislock);
 		do {
 			if(approach) {
 				// Check limit state. Lock out cycle axes when they change.
@@ -231,19 +245,31 @@ void Limits_GoHome(uint8_t cycle_mask)
 				for(idx = 0; idx < N_AXIS; idx++) {
 					if(axislock & step_pin[idx]) {
 						if(limit_state & (1 << idx)) {
-#ifdef COREXY
-							if(idx == Z_AXIS) {
-								axislock &= ~(step_pin[Z_AXIS]);
-							}
-							else {
-								axislock &= ~(step_pin[A_MOTOR]|step_pin[B_MOTOR]);
-							}
-#else
-							axislock &= ~(step_pin[idx]);
-#endif
+                            #ifdef COREXY
+                                if(idx == Z_AXIS) {
+                                    axislock &= ~(step_pin[Z_AXIS]);
+                                }
+                                else {
+                                    axislock &= ~(step_pin[A_MOTOR]|step_pin[B_MOTOR]);
+                                }
+                            #else
+                                axislock &= ~(step_pin[idx]);
+                            #endif
 						}
 					}
 				}
+
+				#ifdef DUAL_X_AXIS
+                    if(axislock & (1<<X2_STEP_BIT) && limit_state & (1 << X2_LIMIT_BIT)) {
+                        axislock &= ~(1<<X2_STEP_BIT);
+                    }
+				#endif
+
+                #ifdef DUAL_Y_AXIS
+                    if(axislock & (1<<Y2_STEP_BIT) && limit_state & (1 << Y2_LIMIT_BIT)) {
+                        axislock &= ~(1<<Y2_STEP_BIT);
+                    }
+				#endif
 
 				sys.homing_axis_lock = axislock;
 			}
@@ -283,7 +309,7 @@ void Limits_GoHome(uint8_t cycle_mask)
 				}
 			}
 		// TODO:
-		} while(0x07 & axislock);
+		} while(0x1F & axislock);
 
 		Stepper_Reset(); // Immediately force kill steppers and reset step segment buffer.
 		Delay_ms(settings.homing_debounce_delay); // Delay to allow transient dynamics to dissipate.
